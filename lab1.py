@@ -13,9 +13,14 @@ cinza [2,4,8,16,32,64,128,256] (quantização)"""
 
 # Reading parameters
 image_name = sys.argv[1]
-sampling_percentage = 0.25
-amostrage_technique = MODE
-grey_level_count = 4
+sampling_percentage = float(sys.argv[2])
+amostrage_technique = int(sys.argv[3])
+grey_level_count = int(sys.argv[4])
+
+# print("Parsing image", image_name)
+# print("with a sampling percentage of", sampling_percentage)
+# print("using as technique", amostrage_technique)
+# print("and", grey_level_count, "grey levels \n")
 
 def generate_points(minX, xCount, minY, yCount):
     # print(minX, xCount, minY, yCount)
@@ -52,13 +57,13 @@ def paint(image, color, points):
 
 original_image = cv2.imread(image_name, 0)
 original_h, original_w = original_image.shape
-print("Original image dimensions: ", original_h, original_w)
+# print("Original image dimensions: ", original_h, original_w)
 
 new_image = np.zeros(shape=[original_h, original_w, 1], dtype=np.uint8)
 
 new_h = math.ceil(original_h * sampling_percentage)
 new_w = math.ceil(original_w * sampling_percentage)
-print("New image 'dimensions': ", new_h, new_w)
+# print("New image 'dimensions': ", new_h, new_w)
 
 greyscale_levels = np.linspace(0, 255, grey_level_count)
 
@@ -122,7 +127,7 @@ while math.ceil(previous_w) < original_w:
     # # We use ceil to prevent math errors from floating points
     previous_w = max_w
 
-cv2.imwrite("output.png", new_image)
+name = image_name.split(".")[0]
 
-cv2.imshow("test", original_image)
-cv2.imshow("test", new_image)
+output_name = name + "_" + str(math.ceil(sampling_percentage * 100)) + "_" + str(amostrage_technique) + "_" + str(grey_level_count) + "." + image_name.split(".")[1]
+cv2.imwrite(output_name, new_image)
