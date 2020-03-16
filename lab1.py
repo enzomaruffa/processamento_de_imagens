@@ -17,6 +17,15 @@ sampling_percentage = float(sys.argv[2])
 amostrage_technique = int(sys.argv[3])
 grey_level_count = int(sys.argv[4])
 
+if sampling_percentage > 1 or sampling_percentage <= 0:
+    exit("sampling_percentage must be > 0 and <= 1")
+
+if amostrage_technique not in [0, 1, 2]:
+    exit("amostrage_technique must be in [0, 1, 2]")
+
+if grey_level_count > 256 or grey_level_count <= 1 :
+    exit("grey_level_count must be <= 256 and > 1 ")
+
 # print("Parsing image", image_name)
 # print("with a sampling percentage of", sampling_percentage)
 # print("using as technique", amostrage_technique)
