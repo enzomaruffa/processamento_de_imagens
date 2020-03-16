@@ -32,11 +32,9 @@ if grey_level_count > 256 or grey_level_count <= 1 :
 # print("and", grey_level_count, "grey levels \n")
 
 def generate_points(minX, xCount, minY, yCount):
-    # print(minX, xCount, minY, yCount)
     points = []
     for i in range(minX, minX + xCount):
         for j in range(minY, minY + yCount):
-            # print("Generating from", minX, xCount, "points and from", minY, yCount, "points")
             points.append((i, j))
     return points
 
@@ -55,7 +53,6 @@ def get_color_for(colors, mode):
         return np.mode(colors)
     return 255
 
-# O(n), could be better tho :(
 def get_closest_in(value_list, number):
     return min(value_list, key=lambda x:abs(x-number))
 
@@ -66,13 +63,11 @@ def paint(image, color, points):
 
 original_image = cv2.imread(image_name, 0)
 original_h, original_w = original_image.shape
-# print("Original image dimensions: ", original_h, original_w)
 
 new_image = np.zeros(shape=[original_h, original_w, 1], dtype=np.uint8)
 
 new_h = math.ceil(original_h * sampling_percentage)
 new_w = math.ceil(original_w * sampling_percentage)
-# print("New image 'dimensions': ", new_h, new_w)
 
 greyscale_levels = np.linspace(0, 255, grey_level_count)
 
@@ -82,58 +77,32 @@ height_step = original_h / new_h
 previous_w = 0
 max_w = 0
 current_image_x = 0
-while math.ceil(previous_w) < original_w: 
-    # calculate width stuff
+
+while math.ceil(previous_w) < original_w:   
     max_w = previous_w + width_step
     previous_w_floor = math.floor(previous_w)
     total_w_iteration = math.floor(max_w - previous_w_floor)
 
-    # print("\ntotal w in this:", total_w_iteration)
-
     previous_h = 0
     max_h = 0
     current_image_y = 0
-    while math.ceil(previous_h) < original_h: 
-        # calculate height stuff
 
+    while math.ceil(previous_h) < original_h: 
         max_h = previous_h + height_step
         
         previous_h_floor = math.floor(previous_h)
         total_h_iteration = math.floor(max_h - previous_h_floor)
-        # print("total h in this:", total_h_iteration)
-
-        # Generate points for images
-        # print("original_h, max_h:", original_h, max_h, "original_w, max_w", original_w, max_w)
-        # print("Calling generating points with", previous_w_floor, total_w_iteration, previous_h_floor, total_h_iteration)
+        
         points = generate_points(previous_w_floor, total_w_iteration, previous_h_floor, total_h_iteration)
-        # print("points:")
-        # for point in points:
-        #     print("x:", point[0], "y:",point[1])
-        # print("\n")
-
-        # Get colors in original image for points
         colors = get_colors_in(original_image, points)
-        # print("colors:")
-        # for color in colors:
-        #     print("c:", color)
-        # print("\n")
-
-        # Get color using a method for points
         color = get_color_for(colors, MEDIAN)
-        # print("color:", color)
-
-        # Get final color
+        
         final_color = get_closest_in(greyscale_levels, color)
-        # print("final_color:", final_color)
 
-        # Paint the new image
         paint(new_image, final_color, points)
 
-        # increment h
         previous_h = max_h
 
-    # increment w
-    # # We use ceil to prevent math errors from floating points
     previous_w = max_w
 
 name = image_name.split(".")[0]

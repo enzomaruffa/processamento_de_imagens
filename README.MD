@@ -4,6 +4,11 @@
 
 O código principal do trabalho está no arquivo *lab1.py*. O arquivo *interactive_lab1.py* oferece uma maneira de executar o lab1 sobre várias imagens de uma vez e testando diversas configurações.
 
+## Dependências
+
+- opencv
+- numpy
+
 ## Instruções de uso - lab1.py
 
 Executar
