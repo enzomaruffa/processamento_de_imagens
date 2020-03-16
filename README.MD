@@ -11,13 +11,13 @@ Executar
 python3 lab1.py <nome_da_imagem> <porcentual_de_amostragem> <tecnica_de_amostragem> <niveis_de_cinza>
 ````
 sendo:
-    * nome_da_imagem: nome do arquivo com extensão
-    * porcentual_de_amostragem: multiplicador que será aplicado ao tamanho da imagem original, entre 0 e 1
-    * tecnica_de_amostragem: 0, 1 ou 2, onde 
-        * 0 é a média dos valores
-        * 1 é a mediana dos valores
-        * 2 é a moda dos valores
-    * niveis_de_cinza: número de níveis de cinza que serão utilizados no arquivo final, entre 2 e 256
+    1. nome_da_imagem: nome do arquivo com extensão
+    2. porcentual_de_amostragem: multiplicador que será aplicado ao tamanho da imagem original, entre 0 e 1
+    3. tecnica_de_amostragem: 0, 1 ou 2, onde 
+        1. 0 é a média dos valores
+        2. 1 é a mediana dos valores
+        3. 2 é a moda dos valores
+    1.s niveis_de_cinza: número de níveis de cinza que serão utilizados no arquivo final, entre 2 e 256
 
 Exemplo:
 ```
